@@ -110,6 +110,7 @@ func (m *netatmoCollector) Describe(dChan chan<- *prometheus.Desc) {
 func (m *netatmoCollector) Collect(mChan chan<- prometheus.Metric) {
 	devices, err := m.client.Read()
 	if err != nil {
+		log.Printf("Error retrieving Netatmo metrics: %v", err)
 		netatmoUp.Set(0)
 		mChan <- netatmoUp
 		return
